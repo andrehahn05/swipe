@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
+
     <com.tsuryo.swipeablerv.SwipeableRecyclerView
         android:id="@+id/rv_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:leftBgColor="@color/edit"
         app:leftImage="@drawable/ic_edit"
         app:leftText="Editar"
@@ -21,7 +25,16 @@
         app:rightImage="@drawable/ic_delete"
         app:rightText="Remover"
         app:textColor="@android:color/white"
-        tools:listitem="@layout/list_item"
-        app:layoutManager = "androidx.recyclerview.widget.LinearLayoutManager"/>
+        tools:listitem="@layout/list_item" />
+
+    <Switch
+        android:id="@+id/btn_Dark_Mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rv_list"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

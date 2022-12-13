@@ -2,9 +2,12 @@ package com.hahn.swipe.ui.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hahn.swipe.databinding.ActivityMainBinding
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         removeList = dataList
         configLayoutManage()
         initRecyclerViewAdapter()
-
+        switch()
     }
 
     private fun configLayoutManage() {
@@ -72,6 +75,16 @@ class MainActivity : AppCompatActivity() {
             }
         val dialog = build.create()
         dialog.show()
+    }
+
+    private fun switch() {
+        binding.btnDarkMode.setOnCheckedChangeListener { compoundButton , isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     private fun loadList() {
