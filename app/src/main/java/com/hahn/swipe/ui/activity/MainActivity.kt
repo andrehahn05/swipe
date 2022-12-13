@@ -1,12 +1,17 @@
 package com.hahn.swipe.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hahn.swipe.databinding.ActivityMainBinding
 import com.hahn.swipe.model.DataList
 import com.hahn.swipe.ui.recyclerview.adapter.RecyclerAdapter
+import com.tsuryo.swipeablerv.SwipeLeftRightCallback.Listener
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,14 +19,16 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
     private lateinit var rvAdapter: RecyclerAdapter
-    private lateinit var dataList : List<DataList>
+    private  var dataList = mutableListOf<DataList>()
+    var removeList = mutableListOf<DataList>()
 
     override fun onCreate(savedInstanceState : Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         loadList()
+        removeList = dataList
         configLayoutManage()
-        initAdapter()
+        initRecyclerViewAdapter()
 
     }
 
@@ -31,13 +38,44 @@ class MainActivity : AppCompatActivity() {
         binding.rvList.setHasFixedSize(true)
     }
 
-    private fun initAdapter() {
-        rvAdapter = RecyclerAdapter(dataList)
+    private fun initRecyclerViewAdapter() {
+        rvAdapter = RecyclerAdapter(removeList)
         binding.rvList.adapter = rvAdapter
+        swipe()
+    }
+
+    private fun swipe() {
+        binding.rvList.setListener(object : Listener {
+            override fun onSwipedLeft(position : Int) {
+                removeItem(position)
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onSwipedRight(position : Int) {
+                //...
+                Toast.makeText(this@MainActivity , "Editar" , Toast.LENGTH_SHORT).show()
+                binding.rvList.adapter?.notifyDataSetChanged()
+            }
+        })
+    }
+
+    private fun removeItem(position: Int){
+        val build = AlertDialog.Builder(this)
+            .setTitle("Deseja remover este item ?")
+            .setMessage("Aperte em sim para confirmar ou não para cancelar!")
+            .setPositiveButton("Sim"){ _ , _ ->
+                removeList.removeAt(position)
+                binding.rvList.adapter?.notifyItemRemoved(position)
+            }
+            .setNegativeButton("Não"){ _ , _ ->
+                binding.rvList.adapter?.notifyDataSetChanged()
+            }
+        val dialog = build.create()
+        dialog.show()
     }
 
     private fun loadList() {
-        dataList = listOf(
+        dataList = mutableListOf(
             DataList("Java" , "Exp : 3 anos"),
             DataList("C#" , "Exp : 7 anos"),
             DataList("Kotlin" , "Exp : 3 anos"),
