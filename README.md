@@ -6,7 +6,7 @@ App com simples exemplo recyclerView com View Binding em Kotlin
 
 O App lista um array fake de Linguagem de programação com nome e experiência. É possível remover e editar (toast) com swipe.Tambem é possível personalizar o tema. 
 
-![](img/swipe600.gif)
+![](img/swipe.gif)
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
