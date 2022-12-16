@@ -24,10 +24,6 @@ As técnicas e tecnologias utilizadas pra isso são:
 
 
 
-Tela de detalhes da lista-swipe
-
-![swipe](https://user-images.githubusercontent.com/46737586/207611068-ba56183b-097a-419e-acc4-95ca374a3b6b.gif)
-
 
 ## 📁 Acesso ao projeto
 
